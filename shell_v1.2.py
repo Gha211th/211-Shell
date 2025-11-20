@@ -1,3 +1,7 @@
+# THIS IS MY FIRST SHELL THAT I EVER MADE
+# kinda fun for me, cause when i run this 211 shell v1.2
+# There's the color!
+
 import os 
 import subprocess
 import shlex
@@ -20,6 +24,8 @@ YELLOW = "\033[33m"
 BLUE = "\033[34m"
 CYAN = "\033[36m"
 MAGENTA = "\033[35m"
+
+
 
 print(rf"""{MAGENTA}
   ___  ___  __    __      _____ _          _ _ 
