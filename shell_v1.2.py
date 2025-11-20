@@ -13,7 +13,7 @@ OS_type = platform.system()
 if OS_type == "darwin":
     OS_type = "macos"
 
-# for detecing the username from laptop
+# for detecting the username from laptop
 USER = getpass.getuser()
 
 
