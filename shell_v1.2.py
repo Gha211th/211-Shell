@@ -62,6 +62,15 @@ def main():
                 os.chdir(home)
                 continue
             target = parts[1]
+
+            if len(target) == 2 and target[1] == ":":
+                drive_path = target.upper() + r"\\"
+                try:
+                    os.chdir(drive_path)
+                except Exception:
+                    print(f"{RED}>> Drive not found{RESET}")
+                continue
+
             try:
                 os.chdir(target)
             except FileNotFoundError:
