@@ -28,7 +28,7 @@ MAGENTA = "\033[35m"
 
 
 # ascii opening logo
-print(rf"""{MAGENTA}
+banner = rf"""{MAGENTA}
   ___  ___  __    __      _____ _          _ _ 
  |__ \|__ \|  |  |  |    / ____| |        | | |
     ) |  ) |  |  |  |   | (___ | |__   ___| | |
@@ -41,12 +41,17 @@ print(rf"""{MAGENTA}
             USER          : {USER}
            Type {RED}"exit"{RESET} {BLUE}to leave the shell.{RESET}
 ------------------------------------------------
-""")
+"""
+print(banner)
 
 def main():
     while True:
         current = os.getcwd()
         command = input(f"{GREEN}{USER}@{OS_type} {BLUE}{current}$> {RESET}")
+
+        # when you type "typefetch"
+        if command == "":
+            continue
 
         # when you type "exit"it will be break the program / stop
         if command == 'exit':
@@ -64,6 +69,20 @@ def main():
             {RESET}""")
             break
 
+        # kinda neofetch
+        elif command == 'typefetch':
+            print(banner)
+            continue
+
+        # for change the drive like C/D/E etc
+        elif len(command) == 2 and command[1] == ":":
+                drive_path = command.upper() + "\\"
+                try:
+                    os.chdir(drive_path)
+                except Exception:
+                    print(f"{RED}>> Drive not found{RESET}")
+                continue
+        
         # if the command start with "cd" it will be change the directory
         if command.startswith('cd'):
             parts = shlex.split(command)
@@ -72,15 +91,6 @@ def main():
                 os.chdir(home)
                 continue
             target = parts[1]
-
-            # for change the drive like C/D/E etc
-            if len(target) == 2 and target[1] == ":":
-                drive_path = target.upper() + r"\\"
-                try:
-                    os.chdir(drive_path)
-                except Exception:
-                    print(f"{RED}>> Drive not found{RESET}")
-                continue
 
             # if the target is false
             try:
