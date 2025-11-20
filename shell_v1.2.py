@@ -13,6 +13,7 @@ OS_type = platform.system()
 if OS_type == "darwin":
     OS_type = "macos"
 
+# for detecing the username from laptop
 USER = getpass.getuser()
 
 
@@ -26,7 +27,7 @@ CYAN = "\033[36m"
 MAGENTA = "\033[35m"
 
 
-
+# ascii opening logo
 print(rf"""{MAGENTA}
   ___  ___  __    __      _____ _          _ _ 
  |__ \|__ \|  |  |  |    / ____| |        | | |
@@ -46,6 +47,8 @@ def main():
     while True:
         current = os.getcwd()
         command = input(f"{GREEN}{USER}@{OS_type} {BLUE}{current}$> {RESET}")
+
+        # when you type "exit"it will be break the program / stop
         if command == 'exit':
             print(fr"""{YELLOW}
     ____                   _ ____             
@@ -61,6 +64,7 @@ def main():
             {RESET}""")
             break
 
+        # if the command start with "cd" it will be change the directory
         if command.startswith('cd'):
             parts = shlex.split(command)
             if len(parts) == 1:
@@ -69,6 +73,7 @@ def main():
                 continue
             target = parts[1]
 
+            # for change the drive like C/D/E etc
             if len(target) == 2 and target[1] == ":":
                 drive_path = target.upper() + r"\\"
                 try:
@@ -77,6 +82,7 @@ def main():
                     print(f"{RED}>> Drive not found{RESET}")
                 continue
 
+            # if the target is false
             try:
                 os.chdir(target)
             except FileNotFoundError:
@@ -86,6 +92,8 @@ def main():
             except NotADirectoryError:
                 print(f"{RED}>> Directory not found{RESET}")
             continue
+
+        # for running the program
         try:
             subprocess.run(command, shell=True)
         except Exception as e:
