@@ -23,3 +23,23 @@ while True:
         print("================== GOOD BYE ==================")
         print("==============================================\n")
         break
+
+    if command.startswith("cd"):
+        parts = command.split()
+        if len(parts) == 1:
+            print(">> What do you looking for?")
+
+        try:
+            target = command.split()[1]
+            os.chdir(target)
+        except FileNotFoundError:
+            print(">> File not found btw~")
+        except NotADirectoryError:
+            print(">> Can't found directory btw~")
+        except PermissionError:
+            print(">> You don't have any permission btw~")
+        continue
+    try:
+        subprocess.run(command, shell=True)
+    except Exception as e:
+        print(f"Error {e}")
