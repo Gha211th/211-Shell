@@ -14,5 +14,5 @@
 
 ---
 
-# 211 Shell v1.2
-### The v1.2
+<h1>The 211 Shell V1.2</h1>
+<h4>Made with python</h4>
