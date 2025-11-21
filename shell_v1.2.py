@@ -1,23 +1,19 @@
-# THIS IS MY FIRST SHELL THAT I EVER MADE
-# kinda fun for me, cause when i run this 211 shell v1.2
-# There's the color!
+# i'm made the v1.3!
 
-import os 
-import subprocess
+import os
 import shlex
+import subprocess
 import platform
 import getpass
+import shutil
 
-# i'm make the shell can detect the OS
-OS_type = platform.system()
-if OS_type == "darwin":
-    OS_type = "macos"
+# for Os type
+OS_name = platform.system()
 
-# for detecting the username from laptop
-USER = getpass.getuser()
+# for name User
+User_name_device = getpass.getuser()
 
-
-# color code
+# color *is from Ai
 RESET = "\033[0m"
 RED = "\033[31m"
 GREEN = "\033[32m"
@@ -26,8 +22,7 @@ BLUE = "\033[34m"
 CYAN = "\033[36m"
 MAGENTA = "\033[35m"
 
-
-# ascii opening logo
+# for opening logo
 banner = rf"""{CYAN}
   _______  ____   ____     _______  __   __  _______  ___      ___     
 |       ||    | |    |   |       ||  | |  ||       ||   |    |   |    
@@ -38,13 +33,13 @@ banner = rf"""{CYAN}
 |_______| |___|  |___|   |_______||__| |__||_______||_______||_______|
  
                     Welcome to 211 Shell v1.2
-                    Detected OS   : {OS_type}
-                    USER          : {USER}
+                    Detected OS   : {OS_name}
+                    USER          : {User_name_device}
                 Type {RED}"exit"{RESET} {BLUE}to leave the shell.{RESET}
 {CYAN}______________________________________________________________________{RESET}
 """
 
-
+# for closing
 closing = rf"""{YELLOW}
  _______  _______  _______  ______     _______  __   __  _______  __  
 |       ||       ||       ||      |   |  _    ||  | |  ||       ||  | 
@@ -60,61 +55,72 @@ closing = rf"""{YELLOW}
 
 """
 
+# print the logo for when the shell start
 print(banner)
 
-def main():
-    while True:
-        current = os.getcwd()
-        command = input(f"{GREEN}{USER}@{OS_type} {BLUE}{current}$> {RESET}")
+while True:
+    current = os.getcwd()
+    command = input(f"{GREEN}{User_name_device}&{OS_name}{RESET} {BLUE}{current}${RESET} ")
 
-        # when you type "typefetch"
-        if command == "":
-            continue
-
-        # when you type "exit"it will be break the program / stop
-        if command == 'exit':
-            print(closing)
-            break
-
-        # kinda neofetch
-        elif command == 'typefetch':
-            print(banner)
-            continue
-
-        # for change the drive like C/D/E etc
-        elif len(command) == 2 and command[1] == ":":
-                drive_path = command.upper() + "\\"
-                try:
-                    os.chdir(drive_path)
-                except Exception:
-                    print(f"{RED}>> Drive not found{RESET}")
-                continue
-        
-        # if the command start with "cd" it will be change the directory
-        if command.startswith('cd'):
-            parts = shlex.split(command)
-            if len(parts) == 1:
-                home = os.path.expanduser("~")
-                os.chdir(home)
-                continue
-            target = parts[1]
-
-            # if the target is false
-            try:
-                os.chdir(target)
-            except FileNotFoundError:
-                print(f"{RED}>> File not found{RESET}")
-            except PermissionError:
-                print(f"{RED}>> You don't have any permission to open this file{RESET}")
-            except NotADirectoryError:
-                print(f"{RED}>> Directory not found{RESET}")
-            continue
-
-        # for running the program
+    # for exit the program
+    if command == 'exit':
+        print(closing)
+        break
+    elif command == '':
+        continue
+    elif command == 'funfetch':
+        print(banner)
+        continue
+    elif len(command) == 2 and command[1] == ':':
+        drive_path = command.upper() + '\\'
         try:
-            subprocess.run(command, shell=True)
-        except Exception as e:
-            print(f"Error {e}")
+            os.chdir(drive_path)
+        except Exception:
+            print(f"{RED}>> {command} not found!{RESET}")
 
-# RUN PROGRAM
-main()
+    if command.startswith('cd'):
+        parts = shlex.split(command)
+        if len(parts) == 1:
+            home = os.path.expanduser('~')
+            os.chdir(home)
+            continue
+        target = parts[1]
+
+        try:
+            os.chdir(target)
+        except FileNotFoundError:
+            print(f">> {RED}file {target} Is not found{RESET}")
+        except NotADirectoryError:
+            print(f">> {RED}Directory {target} Is not found{RESET}")
+        except PermissionError:
+            print(f">> {RED}{target} Can't be opened{RESET}")
+        continue
+
+    parts_rm = shlex.split(command)
+    if parts_rm[0] == 'rm':
+        if len(parts_rm) < 2:
+            print(f">>{RED} Usage: rm <file_directory>{RESET}")
+            continue
+        
+        target_rm = parts_rm[1]
+        target_path = os.path.join(current, target_rm)
+
+        if os.path.isfile(target_path):
+            try:
+                os.remove(target_path)
+                print(f">> {BLUE}file {target_rm} has successfuly removed!{RESET}")
+            except Exception as e:
+                print(f'>> {RED}Error {e}{RESET}')
+        elif os.path.isdir(target_path):
+            try:
+                shutil.rmtree(target_path)
+                print(f">> {BLUE}Directory {target_rm} has successfuly removed!{RESET}")
+            except Exception as e:
+                print(f">> {RED}Error {e}{RESET}")
+        else:
+            print(f">> {RED}Can't Find: {RESET}{BLUE}{target_rm}{RESET}")
+
+    try:
+        subprocess.run(command, shell=True)
+    except Exception as e:
+        print(f"Error {e}")
