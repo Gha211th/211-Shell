@@ -40,7 +40,7 @@ banner = rf"""{CYAN}
 """
 
 # for closing
-closing = rf"""{YELLOW}
+closing = rf"""{CYAN}
  _______  _______  _______  ______     _______  __   __  _______  __  
 |       ||       ||       ||      |   |  _    ||  | |  ||       ||  | 
 |    ___||   _   ||   _   ||  _    |  | |_|   ||  |_|  ||    ___||  | 
@@ -51,7 +51,7 @@ closing = rf"""{YELLOW}
 {RESET}
                     {MAGENTA}Thank's for use "211 shell!"{RESET}
                         {BLUE}@Gha211th.2k25{RESET}
-{YELLOW}====================================================================={RESET}
+{CYAN}====================================================================={RESET}
 
 """
 
@@ -63,7 +63,7 @@ while True:
     command = input(f"{GREEN}{User_name_device}&{OS_name}{RESET} {BLUE}{current}${RESET} ")
 
     # for exit the program
-    if command == 'exit':
+    if command.lower() == 'exit':
         print(closing)
         break
     elif command == '':
@@ -108,17 +108,18 @@ while True:
         if os.path.isfile(target_path):
             try:
                 os.remove(target_path)
-                print(f">> {BLUE}file {target_rm} has successfuly removed!{RESET}")
+                print(f">> {CYAN}file {target_rm} has successfuly removed!{RESET}")
             except Exception as e:
                 print(f'>> {RED}Error {e}{RESET}')
         elif os.path.isdir(target_path):
             try:
                 shutil.rmtree(target_path)
-                print(f">> {BLUE}Directory {target_rm} has successfuly removed!{RESET}")
+                print(f">> {CYAN}Directory {target_rm} has successfuly removed!{RESET}")
             except Exception as e:
                 print(f">> {RED}Error {e}{RESET}")
         else:
-            print(f">> {RED}Can't Find: {RESET}{BLUE}{target_rm}{RESET}")
+            print(f">> {RED}Can't Find: {RESET}{CYAN}{target_rm}{RESET}")
+        continue
 
     try:
         subprocess.run(command, shell=True)
