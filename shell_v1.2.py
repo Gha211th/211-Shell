@@ -27,40 +27,43 @@ banner = rf"""{CYAN}
     _______  ____   ____     _______  __   __  _______  ___      ___     
     |       ||    | |    |   |       ||  | |  ||       ||   |    |   |    
     |____   | |   |  |   |   |  _____||  |_|  ||    ___||   |    |   |    
-    ____|  | |   |  |   |   | |_____ |       ||   |___ |   |    |   |    
+    _____|  | |   |  |   |   | |_____ |       ||   |___ |   |    |   |    
     | ______| |   |  |   |   |_____  ||       ||    ___||   |___ |   |___ 
     | |_____  |   |  |   |    _____| ||   _   ||   |___ |       ||       |
     |_______| |___|  |___|   |_______||__| |__||_______||_______||_______|
     
-                    Welcome to 211 Shell v1.2
-                    Detected OS   : {OS_name}
-                    USER          : {User_name_device}
-                Type {RED}"exit"{RESET} {BLUE}to leave the shell.{RESET}
-{CYAN}______________________________________________________________________{RESET}
+                        {YELLOW}Welcome to 211 Shell v1.2{RESET}
+                        {BLUE}Detected OS   : {OS_name}
+                        USER          : {User_name_device}{RESET}
+
+                      Type {RED}"exit"{RESET} to leave the shell.
+    {CYAN}______________________________________________________________________{RESET}
 """
 
 # for closing
 closing = rf"""{CYAN}
- _______  _______  _______  ______     _______  __   __  _______  __  
-|       ||       ||       ||      |   |  _    ||  | |  ||       ||  | 
-|    ___||   _   ||   _   ||  _    |  | |_|   ||  |_|  ||    ___||  | 
-|   | __ |  | |  ||  | |  || | |   |  |       ||       ||   |___ |  | 
-|   ||  ||  |_|  ||  |_|  || |_|   |  |  _   | |_     _||    ___||__| 
-|   |_| ||       ||       ||       |  | |_|   |  |   |  |   |___  __  
-|_______||_______||_______||______|   |_______|  |___|  |_______||__| 
-{RESET}
-                    {MAGENTA}Thank's for use "211 shell!"{RESET}
-                        {BLUE}@Gha211th.2k25{RESET}
-{CYAN}====================================================================={RESET}
+    ________ ________ ________ ______     _______  __   __  _______  __  
+    |       ||       ||       ||      |   |  _    ||  | |  ||       ||  | 
+    |    ___||   _   ||   _   ||  _    |  | |_|   ||  |_|  ||    ___||  | 
+    |   | __ |  | |  ||  | |  || | |   |  |       ||       ||   |___ |  | 
+    |   ||  ||  |_|  ||  |_|  || |_|   |  |  _   | |_     _||    ___||__| 
+    |   |_| ||       ||       ||       |  | |_|   |  |   |  |   |___  __  
+    |_______||_______||_______||______|   |_______|  |___|  |_______||__| 
+    {RESET}
+                        {YELLOW}Thank's for use "211 shell!"{RESET}
+                            {BLUE}@Gha211th.2k25{RESET}
+    {CYAN}====================================================================={RESET}
 
 """
 
 # print the logo for when the shell start
 print(banner)
+home = os.path.expanduser('~')
+os.chdir(home)
 
 while True:
     current = os.getcwd()
-    command = input(f"{GREEN}{User_name_device}&{OS_name}{RESET} {BLUE}{current}${RESET} ")
+    command = input(f"{YELLOW}{User_name_device}&{OS_name}{RESET} {BLUE}{current}$👉👉{RESET} ")
 
     # for exit the program
     if command.lower() == 'exit':
