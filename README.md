@@ -24,3 +24,6 @@
 ### Why i made this?
 - For my little Project✒️
 - Wanna understand more About Python🐍
+- Kinda fun for me😁👍
+
+###it will be upgrade?🤔, maybe😅, cause it just my little project👍
