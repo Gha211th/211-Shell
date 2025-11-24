@@ -29,7 +29,7 @@
 - mkdir = make a new directory📁
 
 ### how to use🧐?:
-- Run in terminal > shell_v1.2.py
+- Run in terminal > python shell_v1.2.py
 - Just use like using a terminal
 
 ### Why i made this?
