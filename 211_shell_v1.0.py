@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-print(r"""
+print(fr"""
   ___  ___  __    __      _____ _          _ _ 
  |__ \|__ \|  |  |  |    / ____| |        | | |
     ) |  ) |  |  |  |   | (___ | |__   ___| | |
