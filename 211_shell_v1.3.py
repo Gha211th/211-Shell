@@ -8,24 +8,25 @@ import getpass
 import shutil
 
 # adding the libary for auto tab features
-import readline
-import glob
+from prompt_toolkit import PromptSession
+from prompt_toolkit.completion import Completer, Completion, PathCompleter, WordCompleter
 
 BUILTINS = ['cd', 'rm', 'mkdir', 'funfetch']
 
 # make some functions
-def completer(text, state):
-    options = []
-    options.extend([command for cmd in BUILTINS if command.startswith(text)])
-    options.extend(glob.glob(text + "*"))
-    options = sorted(text(options))
+class ShellCompleter(Completer):
+    def __init__(self):
+        self.cmd_completer = WordCompleter(BUILTINS, ignore_case=True)
+        self.path_completer = PathCompleter(expanduser=True)
 
-    try:
-        return options[state]
-    except IndexError:
-        return None
-readline.set_completer(completer)
-readline.parse_and_bind('tab: complete')
+    def get_completions(self, document, event):
+        text = document.get_word_before_cursor()
+
+        if text.startswith(('.', '/', '~')):
+            yield from self.path_completer.get_completions(document, event)
+        else:
+            yield from self.cmd_completer.get_completions(document, event)
+            yield from self.path_completer.get_completions(document, event)
 
 # for Os type
 OS_name = platform.system()
