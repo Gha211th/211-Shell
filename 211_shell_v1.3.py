@@ -10,13 +10,14 @@ import shutil
 # adding the libary for auto tab features
 from prompt_toolkit import PromptSession
 from prompt_toolkit.completion import Completer, Completion, PathCompleter, WordCompleter
+from prompt_toolkit import HTML
 
 BUILTINS = ['cd', 'rm', 'mkdir', 'funfetch']
 
 # make some functions
 class ShellCompleter(Completer):
     def __init__(self):
-        self.cmd_completer = WordCompleter(BUILTINS, ignore_case=True)
+        self.cmd_completer = WordCompleter(BUILTINS, ignore_case=True, sentence=True)
         self.path_completer = PathCompleter(expanduser=True)
 
     def get_completions(self, document, event):
@@ -27,6 +28,7 @@ class ShellCompleter(Completer):
         else:
             yield from self.cmd_completer.get_completions(document, event)
             yield from self.path_completer.get_completions(document, event)
+session = PromptSession(completer=ShellCompleter())
 
 # for Os type
 OS_name = platform.system()
@@ -84,8 +86,12 @@ os.chdir(home)
 
 while True:
     current = os.getcwd()
-    prompt = input(f"{YELLOW}{User_name_device}&{OS_name}{RESET} {BLUE}{current}$👉👉{RESET} ")
-    command = input(prompt)
+    prompt_text = [
+    ('ansigreen', f'{User_name_device}&{OS_name} '),
+    ('ansiblue',  f'{current}$ > ')
+]
+
+    command = session.prompt(prompt_text)
 
     # for exit the program
     if command.lower() == 'exit':
@@ -102,6 +108,21 @@ while True:
             os.chdir(drive_path)
         except Exception:
             print(f"{RED}>> {command} not found!{RESET}")
+    elif command == 'cls':
+        os.system('cls')
+        continue
+    elif command == 'clear':
+        os.system('clear')
+        continue
+    elif command == 'ls':
+        for item in os.listdir(current):
+            path_item = os.path.join(current, item)
+
+            if os.path.isdir(path_item):
+                print(f"{BLUE}{item}{RESET}")
+            else:
+                print(item)
+        continue
 
     if command.startswith('cd'):
         parts = shlex.split(command)
