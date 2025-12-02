@@ -14,7 +14,7 @@
 
 ---
 
-<h1>The 211 Shell V1.2🖥️</h1>
+# The 211 Shell V1.3🖥️ (*comming soon*)
 <h3>Made with python🐍</h4>
 
 ### About 211 Shell🖥️:
