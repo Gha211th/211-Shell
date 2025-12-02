@@ -1,4 +1,4 @@
-# i'm made the v1.2!
+# i'm made the v1.3!
 
 import os
 import shlex
@@ -6,6 +6,26 @@ import subprocess
 import platform
 import getpass
 import shutil
+
+# adding the libary for auto tab features
+import readline
+import glob
+
+BUILTINS = ['cd', 'rm', 'mkdir', 'funfetch']
+
+# make some functions
+def completer(text, state):
+    options = []
+    options.extend([command for cmd in BUILTINS if command.startswith(text)])
+    options.extend(glob.glob(text + "*"))
+    options = sorted(text(options))
+
+    try:
+        return options[state]
+    except IndexError:
+        return None
+readline.set_completer(completer)
+readline.parse_and_bind('tab: complete')
 
 # for Os type
 OS_name = platform.system()
@@ -63,7 +83,8 @@ os.chdir(home)
 
 while True:
     current = os.getcwd()
-    command = input(f"{YELLOW}{User_name_device}&{OS_name}{RESET} {BLUE}{current}$👉👉{RESET} ")
+    prompt = input(f"{YELLOW}{User_name_device}&{OS_name}{RESET} {BLUE}{current}$👉👉{RESET} ")
+    command = input(prompt)
 
     # for exit the program
     if command.lower() == 'exit':
