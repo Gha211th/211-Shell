@@ -1,4 +1,4 @@
-# i'm made the v1.3!
+# i'm made the v1.2!
 
 import os
 import shlex
