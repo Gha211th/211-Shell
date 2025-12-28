@@ -13,7 +13,7 @@
 
 ---
 
-# The 211 Shell V1.3🖥️ (_comming soon_)
+# The 211 Shell V1.2🖥️ (the last version)
 
 <h3>Made with python🐍</h4>
 
@@ -43,4 +43,5 @@
 - Kinda fun for me😁👍
 
 ###it will be upgrade?🤔, maybe😅, cause it just my little project👍
+
 
